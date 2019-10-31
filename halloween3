@@ -1,0 +1,156 @@
+\documentclass[tikz,border=10pt]{standalone}
+\usetikzlibrary{calc,backgrounds}
+\usepackage{hieroglf}
+\newcommand*{\llygaddienyddiwr}{\textpmhg{\He}}
+\pgfdeclarelayer{foreground}
+\pgfsetlayers{background,main,foreground}
+% adapted (simplified version) from tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarybackgrounds.code.tex
+\makeatletter
+\tikzset{%
+  on foreground layer/.style={%
+                execute at begin scope={%
+                  \pgfonlayer{foreground}%
+                  \let\tikz@options=\pgfutil@empty%
+                  \tikzset{every on foreground layer/.try,#1}%
+                  \tikz@options%
+                },
+                execute at end scope={\endpgfonlayer}
+  },
+}
+\makeatother
+\tikzset{%
+  pics/yr Angau/.style n args={2}{
+        code={
+          \path  (-#2/4,-.55*#2)
+                |- (-.15*#2,-.15*#2) coordinate (angau7)
+                [out=-20, in=110] to (-.025*#2,-.25*#2) coordinate (angau8)
+                [out=85, in=-85] to (0,-.1*#2) coordinate (angau9)
+                [out=135, in=-100] to (-.125*#2,-.015*#2) coordinate (angau3)
+                -| (-#2/4,#2/2) -| (.375*#2,-.55*#2) -- cycle;
+          \path [line cap=round, line width=.025*#2]
+                  (0,-.5125*#2) coordinate (angau5) -- ++(-#2/6,.95*#2) coordinate [pos=.875] (angau4) coordinate [pos=.95] (angau1);
+          \path [draw=#1, fill=#1, line width=.005*#2, line join=miter]% llafn
+                (angau1) [out=30, in=150] to ($(angau5) + (.375*#2,#2)$) [out=-30, in=135] to ++(.125*#2,-.1*#2) [out=135, in=30] to (angau4);
+                \path [angau clogyn={#1}{#2}]% corff & pen
+                (-.2*#2,-#2/2)
+                  [out=85, in=-110] to (angau7)
+                  [out=160, in=-45] to (-.2*#2,-.115*#2)
+                  [out=135, in=-135] to (-.2*#2,.075*#2)
+                  [out=45, in=-135] to (-.05*#2,.125*#2)
+                  [out=80, in=-80] to (-.075*#2,.2*#2)
+                  [out=100, in=-150] to (.025*#2,.35*#2) coordinate (pen angau)
+                  [out=-35, in=80] to (.125*#2,.2*#2)
+                  [out=-100, in=170] to (.15*#2,.1*#2)
+                  [out=-10, in=120] to (.3*#2,-#2/2)
+                  [out=170, in=-10] to cycle;
+          \path [angau inner={#1}{#2}]% gwyneb
+                (.025*#2,.325*#2) coordinate (pen angau1)
+                  [out=-40, in=60] to (.025*#2,.125*#2) coordinate (angau6)
+                  [out=120, in=-145] to cycle;
+          \begin{scope}% carn (neu 'dwrn'?)
+                \clip  (-#2/4,-.55*#2)
+                  |- (angau7)
+                  [out=-20, in=110] to(angau8)
+                  [out=85, in=-85] to (angau9)
+                  [out=135, in=-100] to (angau3)
+                  -| (-#2/4,#2/2) -| (.375*#2,-.55*#2) -- cycle;
+                \path [draw=#1, line cap=round, line width=.025*#2]
+                  (angau5) -- (angau1);
+          \end{scope}
+          \path [angau outer={#2}{#1}]% llewysau (llinellau)
+                (angau6)
+                  [out=-100, in=85] to (.025*#2,-#2/2)
+                (angau7)
+                  [out=-20, in=110] to (angau8)
+                  [out=85, in=-85] to (angau9)
+                  [out=135, in=-100] to (angau3)
+                (.15*#2,-.02*#2)
+                  [out=-60, in=30] to (.125*#2,-.175*#2) coordinate (angau10)
+                  [out=-10, in=135] to (.275*#2,-.475*#2) coordinate (angau2);
+          \path [angau inner={#1}{#2}]% llawes chwith
+                (angau8) [out=85, in=-85] to (angau9) [out=-85, in=-85] to cycle;
+          \path [angau inner={#1}{#2}]% llawes dde
+                (angau10) [out=-10, in=135] to (angau2) [out=135, in=-20] to ($(angau10) + (-.005*#2,-.015*#2)$) [out=160, in=170] to cycle;
+        }
+  },
+  pics/dienyddiwr/.style n args={2}{
+        code={
+          \begin{scope}[on foreground layer]% carn (neu 'dwrn'?)
+                \path (-#2/4,-.55*#2)
+                  |- (-.15*#2,-.15*#2) coordinate (dienyddiwr7)
+                  [out=-20, in=110] to (-.025*#2,-.25*#2) coordinate (dienyddiwr8)
+                  [out=85, in=-85] to (0,-.1*#2) coordinate (dienyddiwr9)
+                  [out=135, in=-100] to (-.125*#2,-.015*#2) coordinate (dienyddiwr3)
+                  -| (-#2/4,#2/2) -| (.375*#2,-.55*#2) -- cycle;
+                \begin{scope}
+                  \clip  (-#2/4,-.55*#2)
+                        |- (dienyddiwr7)
+                        [out=-20, in=110] to (dienyddiwr8)
+                        [out=-85, in=-85] to (dienyddiwr9)
+                        [out=135, in=-100] to (-.125*#2,-.015*#2) coordinate (dienyddiwr3)
+                        -| (-#2/4,#2/2) -| (.375*#2,-.55*#2) -- cycle;
+                  \path [draw=#1, line cap=round, line width=.025*#2]
+                  (-.05*#2,-.25*#2) coordinate (dienyddiwr5) -- ++(#2/4,.45*#2) coordinate [pos=.875] (dienyddiwr4) coordinate [pos=.95] (dienyddiwr1);
+                \end{scope}
+          \end{scope}
+          \path [draw=#1, fill=#1, line width=.005*#2, line join=miter]% llafn
+                (dienyddiwr1)
+                  [out=-35, in=-115] to ++(.2*#2,-.025*#2)
+                  [out=-90, in=35] to ($(dienyddiwr4) + (.125*#2,-.175*#2)$)
+                  [out=65, in=-35] to (dienyddiwr4);
+          \path [angau clogyn={#1}{#2}]% corff & pen
+          (-.2*#2,-#2/2)
+                [out=85, in=-110] to (dienyddiwr7)
+                [out=160, in=-45] to (-.2*#2,-.115*#2)
+                [out=135, in=-135] to (-.2*#2,.075*#2)
+                [out=45, in=-135] to (-.05*#2,.125*#2)
+                [out=80, in=-80] to (-.075*#2,.2*#2)
+                [out=100, in=-150] to (.025*#2,.35*#2) coordinate (pen dienyddiwr)
+                [out=-35, in=80] to (.125*#2,.2*#2)
+                [out=-100, in=170] to (.15*#2,.1*#2)
+                [out=-10, in=120] to (.3*#2,-#2/2)
+                [out=170, in=-10] to cycle;
+          \path [angau inner={#1}{#2}]% gwyneb
+                (.025*#2,.325*#2) coordinate (pen dienyddiwr1)
+                  [out=-40, in=60] to (.025*#2,.125*#2) coordinate (dienyddiwr6)
+                  [out=120, in=-145] to cycle;
+          \begin{scope}[on foreground layer]
+                \path [angau outer={#2}{#1}]% llewysau (llinellau)
+                  (dienyddiwr7)
+                        [out=-20, in=110] to (dienyddiwr8)
+                        [out=85, in=-85] to (dienyddiwr9)
+                        [out=135, in=-100] to (dienyddiwr3)
+                  (.15*#2,-.02*#2)
+                        [out=-60, in=30] to (.125*#2,-.175*#2) coordinate (dienyddiwr10)
+                        [out=-10, in=135] to (.275*#2,-.475*#2) coordinate (dienyddiwr2);
+                \path [angau inner={#1}{#2}]% llawes chwith
+                  (dienyddiwr8) [out=85, in=-85] to (dienyddiwr9) [out=-85, in=-85] to cycle;
+                \path [angau inner={#1}{#2}]% llawes dde
+                  (dienyddiwr10) [out=-10, in=135] to (dienyddiwr2) [out=135, in=-20] to ($(dienyddiwr10) + (-.005*#2,-.015*#2)$) [out=160, in=170] to cycle;
+          \end{scope}
+          \path [angau outer={#2}{#1}]% clogyn (llinell canolog)
+                (dienyddiwr6)
+                  [out=-100, in=85] to (.025*#2,-#2/2);
+          \begin{scope}% llygaid
+                  \clip (pen dienyddiwr1) [out=-40, in=60] to (dienyddiwr6) [out=120, in=-145] to cycle;
+                  \path [fill=#1!25!darkgray, draw=#1!25!darkgray, line width=.005*#2]
+                        ($(dienyddiwr6)!2/3!(pen dienyddiwr1) - (.03*#2,0)$) coordinate (llygad dienyddiwr chwith) +(.005*#2,0) coordinate (llygad dienyddiwr chwith1) circle (.013*#2 and .003*#2)
+                        ($(dienyddiwr6)!2/3!(pen dienyddiwr1) + (.03*#2,0)$) coordinate (llygad dienyddiwr de) +(-.006*#2,0) coordinate (llygad dienyddiwr de1) circle (.013*#2 and .003*#2);
+                  \path [fill=#1, draw=#1, line width=.005*#2]
+                        (llygad dienyddiwr chwith1) +(.003*#2,0) circle (.003*#2)
+                        (llygad dienyddiwr de1) +(-.003*#2,0) circle (.003*#2);
+                  \node [#1, font=\tiny, xscale=-.0075*#2, yscale=.0075*#2, inner sep=0pt, outer sep=0pt, anchor=center] at (llygad dienyddiwr chwith) {\llygaddienyddiwr};
+                  \node [#1, font=\tiny, scale=.0075*#2, inner sep=0pt, outer sep=0pt, anchor=center] at (llygad dienyddiwr de) {\llygaddienyddiwr};
+          \end{scope}
+        }
+  },
+  angau outer/.style n args={2}{draw=#2, line join=miter, line width=.005*#1},
+  angau clogyn/.style n args={2}{angau outer={#2}{#1}, inner color=#1, outer color=black},
+  angau inner/.style n args={2}{angau clogyn={#1!25!black}{#2}},
+}
+\begin{document}
+\begin{tikzpicture}[background rectangle/.style={top color=black!35!red, bottom color=black!85!red}, show background rectangle]
+  \pic {yr Angau={darkgray}{50pt}};
+  \pic at (1,0) {dienyddiwr={red}{50pt}};
+\end{tikzpicture}
+\end{document}
