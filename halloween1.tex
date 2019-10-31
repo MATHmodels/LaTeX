@@ -1,0 +1,13 @@
+\documentclass[tikz,border=0]{standalone}
+\usetikzlibrary{backgrounds}
+\begin{document}
+\tikz[background rectangle/.style={fill=black},show background rectangle]
+\foreach\c[count=\i from0]in{red!10!black,red!15!black,red!20!black,red!25!black,red!30!black,red!35!black,red!40!black,
+                             red!45!black,red!50!black,red!55!black,red!60!black,red!65!black,red!75!black,
+                             red!75!black!75!orange,red!75!black!50!orange,red!75!black!25!orange,red!75!black!5!orange,orange,
+                             orange!75!yellow,orange!50!yellow,orange!25!yellow,yellow,yellow!75,yellow!50,white}
+                             \clip[preaction={fill=\c},xscale=1-\i/100,yshift=(\i>0)*1.5](-6,-7)(6,3)
+                             \foreach\x in{1,-1}{[xscale=\x](0:1)to[bend right]++(315:2)to[bend right]++(60:4)to[bend right,looseness=0.5]cycle}[shift=(270:\i/15),yscale=1-\i/50](0:5)arc(360:330:5 and 3)
+                             \foreach\i in{330,300,270,240}{arc(\i:\i-10:5 and 3)--(\i-15:5 and 5)--(\i-20:5 and 3)arc(\i-20:\i-30:5 and 3)}arc(210:180:5 and 3)arc(180:195:5 and 6)
+                             \foreach\i in{195,225,255,285,315}{arc(\i:\i+10:5 and 6)--(\i+15:5 and 4)--(\i+20:5 and 6)arc(\i+20:\i+30:5 and 6)}arc(345:360:5 and 6)--cycle;
+\end{document}
