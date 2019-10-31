@@ -1,0 +1,30 @@
+\documentclass[tikz,border=0]{standalone}
+\usetikzlibrary{decorations,backgrounds}
+\tikzset{pics/flame/.style 2 args={code={
+  \fill [fill=#1, yscale=1-#2/4, xscale=1-#2/5, rotate=rand*5]
+    (0:.5+rnd) coordinate (a) arc (360:180:1 and 1) 
+    .. controls ++(90:rnd)            and ++(270:rnd) .. (90+rand*5:2+rnd*2)
+    .. controls ++(270+rand*5:.5+rnd) and ++(90+rand*5:.5+rnd) .. (a) 
+    \pgfextra{\pgfgetpath\flame\global\let\flame=\flame};
+  \foreach \l in {1,...,20}
+    \draw [draw=#1, line width=\l/2, draw opacity=1/10] \pgfextra{\pgfsetpath\flame};
+}}}
+\pgfdeclaredecoration{flames}{burn}{
+  \state{burn}[width=\pgfdecorationsegmentlength]{
+     \pic {flame={flame}{\pgfdecorationsegmentamplitude}};
+   }
+}
+\colorlet{flame}{red}
+\begin{document}
+\foreach \i in {1,...,5}{
+\begin{tikzpicture}[background rectangle/.style={fill=black}, show background rectangle, line join=round]
+\useasboundingbox (-20,-20) rectangle (20,20); 
+\foreach \c [count=\x from 0] in {red!50!black, red!75!black, orange, yellow}{
+  \colorlet{flame}{\c}
+  \draw [decoration={flames, segment length=1.5cm-\x*0.125cm, amplitude=\x}, decorate] 
+    circle [radius=15]
+    (270:15) -- (54:15) -- (198:15) -- (342:15) -- (126:15) -- cycle;
+}
+\end{tikzpicture}
+}
+\end{document}
